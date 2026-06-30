@@ -26,6 +26,31 @@ private resenasResponse mapToResponse(resenasModel resenasModel){
             .actualizaComen(resenasModel.getActualizaComen())
             .build();
     }
-public resenasResponse crearOActualizar (UUID usersId,)
+public resenasResponse crearOActualizar (UUID usersId,resenasRequest request){
+    log.info("Creando/actualizando el puntaje del viaje: {} por el usuario: {}", request.getDestinationsId(), usersId);
+
+    resenasModel resenasModel = resenasRepository.findByUsersIdAndDestinationsId(request.getDestinationsId(), usersId)
+            .map(existing -> {
+                log.ingo("Resena encontrada, actualizandola");
+                existing.setPuntaje(request.getPuntaje());
+                existing.setComentario(request.getComentario());
+                return existing;
+            })
+            .orElseGet(() -> {
+                log.info("No existe una resena, creando una nueva");
+                return resenasModel.builder()
+                .destinationsId(request.getDestinationsId())
+                .usersId(usersId)
+                .puntaje(request.getPuntaje())
+                .comentario(request.getComentario())
+                .build();
+            });
+
+    resenasModel saved = resenasRepository.save(resenasModel);
+
+    log.info("Resena guardada con id : {} para el viaje: {} por el usuario: {}", saved.getId(), saved.getDestinationsId(), usersId);
+
+    return mapToResponse(saved);
+}
 
 }
