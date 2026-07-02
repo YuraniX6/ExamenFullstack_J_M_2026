@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-public class resenasService {
+public class ResenasService {
 
-    private final resenasService resenasService;
+    private final ResenasService resenasService;
 
-private resenasResponse mapToResponse(resenasModel resenasModel){
-    return resenasResponse.builder()
+private ResenasResponse mapToResponse(resenasModel resenasModel){
+    return ResenasResponse.builder()
             .id(resenasModel.getId())
             .usersId(resenasModel.getUsersId())
             .destinationsId(resenasModel.getDestinationsId())
@@ -26,10 +26,10 @@ private resenasResponse mapToResponse(resenasModel resenasModel){
             .actualizaComen(resenasModel.getActualizaComen())
             .build();
     }
-public resenasResponse crearOActualizar (UUID usersId,resenasRequest request){
+public ResenasResponse crearOActualizar (UUID usersId,ResenasRequest request){
     log.info("Creando/actualizando el puntaje del viaje: {} por el usuario: {}", request.getDestinationsId(), usersId);
 
-    resenasModel resenasModel = resenasRepository.findByUsersIdAndDestinationsId(request.getDestinationsId(), usersId)
+    ResenasModel resenasModel = ResenasRepository.findByUsersIdAndDestinationsId(request.getDestinationsId(), usersId)
             .map(existing -> {
                 log.ingo("Resena encontrada, actualizandola");
                 existing.setPuntaje(request.getPuntaje());
@@ -46,11 +46,24 @@ public resenasResponse crearOActualizar (UUID usersId,resenasRequest request){
                 .build();
             });
 
-    resenasModel saved = resenasRepository.save(resenasModel);
+    ResenasModel saved = ResenasRepository.save(ResenasModel);
 
     log.info("Resena guardada con id : {} para el viaje: {} por el usuario: {}", saved.getId(), saved.getDestinationsId(), usersId);
 
     return mapToResponse(saved);
 }
+
+@Transactional(readOnly = true)
+public List<ResenasResponse> getMyResenasModel(UUID userId){
+    log.info("Agarrando todas las resenas del usuario: {}", userId);
+
+    List<ResenasModel> resenasModel = resenasRepository.findAllByUserId(userId);
+
+    log.info("Encontrado {} resenas del usuario: {}", userId);
+
+    return resenasModel.stream()
+            .map(this::mapToResponse)
+            .toList();
+        }   
 
 }

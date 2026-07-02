@@ -19,7 +19,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class resenasModel {
+public class ResenasModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

@@ -10,12 +10,12 @@ import java.util.UUID;
 
 
 @Repository
-public interface resenasRepository extends JpaRespository<resenasModel, UUID> {
-    Optional<resenasModel> findByDestinationIdAndUsersId(UUID destinationsId, UUID usersId);
+public interface ResenasRepository extends JpaRespository<resenasModel, UUID> {
+    Optional<ResenasModel> findByDestinationIdAndUsersId(UUID destinationsId, UUID usersId);
 
-    List<resenasModel> findAllByUsersId(UUID usersId);
+    List<ResenasModel> findAllByUsersId(UUID usersId);
 
-    List<resenasModel> findAllByDestinationsId(UUID destinationsId);
+    List<ResenasModel> findAllByDestinationsId(UUID destinationsId);
 
     @org.springframework.data.jpa.repository.Query(
         "SELECT AVG(r.puntaje) FROM resenas r WHERE r.destinationsId = :destinationsId")

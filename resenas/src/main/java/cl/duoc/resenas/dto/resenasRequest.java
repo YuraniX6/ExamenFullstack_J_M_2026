@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class resenasRequest {
+public class ResenasRequest {
 
     @NotNull(message = "usersId no puede ser nulo")
     private UUID usersId;

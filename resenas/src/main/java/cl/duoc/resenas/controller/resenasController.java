@@ -24,6 +24,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/resenas")
 @RequiredArgsConstructor
-public class resenasController {
+public class ResenasController {
 
 }
