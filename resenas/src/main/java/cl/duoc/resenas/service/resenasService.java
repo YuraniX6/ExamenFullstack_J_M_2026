@@ -1,10 +1,9 @@
 package main.java.cl.duoc.resenas.service;
 
-import main.java.cl.duoc.resenas.model.resenasModel;
-import main.java.cl.duoc.resenas.dto.resenasRequest;
-import main.java.cl.duoc.resenas.dto.resenasResponse;
-import main.java.cl.duoc.resenas.model;
-import main.java.cl.duoc.resenas.repository.resenasRepository;
+import main.java.cl.duoc.resenas.model.ResenasModel;
+import main.java.cl.duoc.resenas.dto.ResenasRequest;
+import main.java.cl.duoc.resenas.dto.ResenasResponse;
+import main.java.cl.duoc.resenas.repository.ResenasRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -64,6 +63,13 @@ public List<ResenasResponse> getMyResenasModel(UUID userId){
     return resenasModel.stream()
             .map(this::mapToResponse)
             .toList();
-        }   
+    }
+
+
+public void delete(UUID userId, UUID Id) {
+    log.info("Borrando resena: {} por el usuario: {}", resenasId, userId);
+
+    Resena resena = resenasRepository
+}
 
 }

@@ -26,4 +26,22 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ResenasController {
 
+    private final ResenasService resenasService;
+
+    @PostMapping
+    @Operation(summary = "Crear o actualizar la resena",
+        description = "Crear una nueva resena o actualizar una existente")
+     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Resena creada o actualizada successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResenasResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Invalido request body o validacion fallida"),
+            @ApiResponse(responseCode = "401", description = "Unautorizadd - invalido o perdido JWT token")
+    })
+    public ResponseEntity<ResenaResponse> crearOActualizarResena(
+            @Valid @RequestBody ResenaRequest request, // @Valid activa las validaciones definidas en RatingRequest (@NotNull, @Min, @Max, @Size).
+            Authentication authentication) { // Spring inyecta automáticamente la autenticación que dejó JwtAuthenticationFilter.
+        log.info("POST /resenas - Creando o actualizando resena");
+
+        return ResponseEntity.ok(response);
+    }
+
 }

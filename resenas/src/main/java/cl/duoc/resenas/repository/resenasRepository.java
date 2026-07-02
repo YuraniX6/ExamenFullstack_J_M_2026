@@ -1,6 +1,6 @@
 package main.java.cl.duoc.resenas.repository;
 
-import main.java.cl.duoc.resenas.model.resenasModel;
+import main.java.cl.duoc.resenas.model.ResenasModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
